@@ -1,0 +1,239 @@
+import random as rand
+from tkinter import *
+def rgb(r, g, b):
+    return f'#{r:02X}{g:02X}{b:02X}'
+def gen():
+    vegetation_div.set(rand.randint(0,100))
+    vegetation_scale.set(rand.randint(0,100))
+    meteor_div.set(rand.randint(0,100))
+    meteor_scale.set(rand.randint(0,100))
+    elescale_scale.set(rand.randint(0,100))
+    elevation_div.set(rand.randint(0,100))
+def movegen():
+    try:
+        vegetation_div.set(vegetation_div.get()+rand.randint(-5,5))
+    except:
+        pass
+    try:
+        vegetation_scale.set(vegetation_scale.get() + rand.randint(-5, 5))
+    except:
+        pass
+    try:
+        meteor_div.set(meteor_div.get() + rand.randint(-5, 5))
+    except:
+        pass
+    try:
+        meteor_scale.set(meteor_scale.get() + rand.randint(-5, 5))
+    except:
+        pass
+    try:
+        elescale_scale.set(elescale_scale.get() + rand.randint(-5, 5))
+    except:
+        pass
+    try:
+        elevation_div.set(elevation_div.get() + rand.randint(-5, 5))
+    except:
+        pass
+def quit():
+    window.destroy()
+window = Tk()
+window.attributes('-fullscreen', True)
+vegetation_div = IntVar()
+vegetation_scale = IntVar()
+meteor_div = IntVar()
+meteor_scale = IntVar()
+elevation_div = IntVar()
+elevation_scale = IntVar()
+finalVar = StringVar()
+testVar = StringVar()
+
+finalVar.set("")
+
+vegediv_scale = Scale(window, variable=vegetation_div,from_=0,to=100,orient=HORIZONTAL,length=500,width=30,font=("COURIER",20))
+vegescale_scale = Scale(window, variable=vegetation_scale,from_=0,to=100,orient=HORIZONTAL,length=500,width=30,font=("COURIER",20))
+
+meteordiv_scale = Scale(window, variable=meteor_div,from_=0,to=100,orient=HORIZONTAL,length=500,width=30,font=("COURIER",20))
+meteorscale_scale = Scale(window, variable=meteor_scale,from_=0,to=100,orient=HORIZONTAL,length=500,width=30,font=("COURIER",20))
+
+elediv_scale = Scale(window, variable=elevation_div,from_=0,to=100,orient=HORIZONTAL,length=500,width=30,font=("COURIER",20))
+elescale_scale = Scale(window, variable=elevation_scale,from_=0,to=100,orient=HORIZONTAL,length=500,width=30,font=("COURIER",20))
+
+vegediv_scale.place(relx=0.5,rely=0.07,anchor=CENTER)
+label1 = Label(window,text="Vegetation Variation \n",font=("COURIER",20)).place(relx=0.145,rely=0.1,anchor=CENTER)
+
+vegescale_scale.place(relx=0.5,rely=0.13,anchor=CENTER)
+label4 = Label(window,text="Vegetation Density \n",font=("COURIER",20)).place(relx=0.145,rely=0.16,anchor=CENTER)
+
+meteordiv_scale.place(relx=0.5,rely=0.19,anchor=CENTER)
+label2 = Label(window,text="Temperature \n",font=("COURIER",20)).place(relx=0.145,rely=0.22,anchor=CENTER)
+
+meteorscale_scale.place(relx=0.5,rely=0.25,anchor=CENTER)
+label5 = Label(window,text="Meteorlogical Storminess \n",font=("COURIER",20)).place(relx=0.145,rely=0.28,anchor=CENTER)
+
+elediv_scale.place(relx=0.5,rely=0.31,anchor=CENTER)
+label3 = Label(window,text="Elevation Roughness \n",font=("COURIER",20)).place(relx=0.145,rely=0.34,anchor=CENTER)
+
+elescale_scale.place(relx=0.5,rely=0.37,anchor=CENTER)
+label6 = Label(window,text="Elevation \n",font=("COURIER",20)).place(relx=0.145,rely=0.4,anchor=CENTER)
+
+finallabel = Label(window, textvariable=finalVar,font=("georgia",30))
+finallabel.place(relx=0.5,rely=0.6,anchor=CENTER)
+
+generate = Button(window,text="RANDOM",command=gen,font=("GEORGIA",40))
+generate.place(relx=0.8,rely=0.1,anchor=CENTER)
+move = Button(window,text="MOVE A LITTLE",command=movegen,font=("GEORGIA",25))
+move.place(relx=0.8,rely=0.2,anchor=CENTER)
+first = ""
+second = ""
+third = ""
+gen()
+quitb = Button(window,text="QUIT",command=quit,font=("GEORGIA",40))
+quitb.place(relx=0.9,rely=0.9,anchor=CENTER)
+while True:
+    vegediv_scale.config(troughcolor=rgb(abs(vegetation_div.get()-255), 255, 163))
+    vegescale_scale.config(troughcolor=rgb(abs(vegescale_scale.get()-255), 255, 163))
+    elediv_scale.config(troughcolor=rgb(abs(elevation_div.get()-255), abs(elevation_div.get()-255), abs(elevation_div.get()-255)))
+    elescale_scale.config(troughcolor=rgb(abs(elevation_scale.get() - 255), abs(elevation_scale.get() - 255), abs(elevation_scale.get() - 255)))
+    meteordiv_scale.config(troughcolor=rgb(round(meteor_div.get()*2.5),0 ,abs(round(meteor_div.get()*2.5)-255)))
+    meteorscale_scale.config(troughcolor=rgb(abs(meteor_scale.get() - 255), abs(meteor_scale.get() - 255), abs(meteor_scale.get() - 255)))
+    if (vegescale_scale.get() <= 5):
+        first1 = "Desert"
+    elif (5 < vegescale_scale.get() <= 30):
+        first1 = "Arid"
+    elif (30 < vegescale_scale.get() <= 60):
+        first1 = "Simple"
+    elif (60 < vegescale_scale.get() <= 80):
+
+        first1 = "Dense"
+    elif (80 < vegescale_scale.get() <= 100):
+        first1 = "Z"
+
+    if(vegediv_scale.get()<=15):
+        first2 = "Grasslands"
+    elif(15<vegediv_scale.get()<=30):
+        first2 = "Steppe"
+    elif (30 < vegediv_scale.get() <= 40):
+        first2 = "Prairies"
+    elif (40 < vegediv_scale.get() <= 75):
+        first2 = "Forest"
+    elif (75 < vegediv_scale.get() <= 100):
+        first2 = "Jungle"
+
+    first = f"{first1} {first2}"
+    if(first=="Arid Forest"):
+        first="Sparse Woodland"
+    elif(first=="Arid Jungle"):
+        first="Parklands"
+    elif (first == "Simple Jungle"):
+        first = "Coniferous Forest"
+    elif (first == "Simple Grasslands"):
+        first = "Grasslands"
+    elif (first == "Simple Steppe"):
+        first = "Steppe"
+    elif (first == "Simple Forest"):
+        first = "Forest"
+    elif (first == "Simple Prairies"):
+        first = "Prairies"
+    elif (first == "Dense Jungle"):
+        first = "Jungle "
+    elif (first == "Dense Forest"):
+        first = "Thicket"
+    elif (first == "Z Jungle"):
+        first = "Rainforest"
+    elif (first == "Z Forest"):
+        first = "Swamp"
+    elif (first == "Z Steppe"):
+        first = "Bayou"
+    elif (first == "Z Prairies"):
+        first = "Marsh"
+    elif (first == "Z Grasslands"):
+        first = "Bog"
+
+    if(first1=="Desert"):
+        first="Desert"
+    #########################################
+    if (elediv_scale.get() <= 10):
+        second1 = "on a Flat-"
+    elif (10 < elediv_scale.get() <= 50):
+        second1 = "on a "
+    elif (50 < elediv_scale.get() <= 75):
+        second1 = "on a Hilly-"
+    elif (75 < elediv_scale.get() <= 100):
+        second1 = "on a Mountainous-"
+
+    if(elescale_scale.get()<=10):
+        second2 = "Basin"
+    elif(10<elescale_scale.get()<=66):
+        second2 = "Midland"
+    elif (66 < elescale_scale.get() <= 100):
+        second2 = "Plateau"
+
+    second = f"{second1}{second2}"
+
+    if (second == "on a Mountainous-Midland"):
+        second = "across a Mountain Range"
+    elif (second == "on a Hilly-Midland"):
+        second = "across Rolling Hills"
+    elif (second == "on a Flat-Midland"):
+        second = "on Flatlands"
+    elif (second == "on a Midland"):
+        second = ""
+    elif (second == "on a Flat-Basin"):
+        second = "in a Flat-Basin"
+    elif (second == "on a Mountainous-Basin"):
+        second = "in a Mountainous-Basin"
+    elif (second == "on a Basin"):
+        second = "in a Basin"
+    elif (second == "on a Hilly-Basin"):
+        second = "in a Hilly-Basin"
+    #########################################
+    if (meteordiv_scale.get() <= 25):
+        third1 = "Polar"
+    elif (25 < meteordiv_scale.get() <= 50):
+        third1 = "Continental"
+    elif (50 < meteordiv_scale.get() <= 75):
+        third1 = "Temperate"
+    elif (75 < meteordiv_scale.get() <= 100):
+        third1 = "Tropical"
+
+    if (meteorscale_scale.get() <= 10):
+        third2 = " Stagnant"
+    elif (10 < meteorscale_scale.get() <= 80):
+        third2 = ""
+    elif (80 < meteorscale_scale.get() <= 100):
+        third2 = " Stormy"
+    if (third1 == "Polar" and first1 == "Desert"):
+        third1=""
+        first="Tundra"
+    elif (third1 == "Temperate" and first1 == "Desert"):
+        third1=""
+        first="Desert"
+    elif (third1 == "Continental" and first1 == "Desert"):
+        third1=""
+        first="Mesa"
+    if(first=="Parklands" and third1=="Tropical"):
+        first="Savanna"
+        third1=""
+    if (third1 == "Polar" and first2 == "Forest"):
+        third1=""
+        if(first1=="Simple"):
+            first="Taiga"
+        else:
+            first=f"{first1} Taiga"
+    if(first2=="Grasslands" and second=="on Flatlands"):
+        if (first1 == "Simple"):
+            first = "Plains"
+        else:
+            first = f"{first1} Plains"
+        second=""
+    if(first1 == "Desert" and second == "across Rolling Hills"):
+        second = "Dunes"
+    if(first=="Z Taiga"):
+        first="Siberian Taiga"
+    if(first=="Z Plains"):
+        first="Floodplains"
+    third = f"{third1}{third2}"
+    finalVar.set(f"{third} {first} {second}")
+    window.update()
+
+window.mainloop()
