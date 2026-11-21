@@ -1,0 +1,144 @@
+import random as rand
+import keyboard
+import win32api, win32con
+import time
+
+def click(x,y):
+    win32api.SetCursorPos((x,y))
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,x,y,0,0)
+def sclick(x,y):
+    win32api.SetCursorPos((x,y))
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,x,y,0,0)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
+def changecolor():
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+    sclick(91, 228)
+    time.sleep(0.2)
+    sclick(931,rand.randint(375,658))
+    time.sleep(0.2)
+    sclick(rand.randint(694, 918), rand.randint(375, 658))
+    time.sleep(0.2)
+    sclick(1107, 762)
+def openmenu(button):
+    global ispressed
+    if (ispressed == True):
+        keyboard.press(button)
+        ispressed = False
+    else:
+        keyboard.release(button)
+        ispressed = True
+def clickTab():
+    flem = 130
+    flem = flem + 70 * rand.randint(0,8)
+    sclick(flem,70)
+def move():
+    global pressy
+    r = rand.randint(1,10)
+
+    if(r <= 6):
+        if (pressy == True):
+            keyboard.press('w')
+            pressy = False
+        else:
+            keyboard.release('w')
+            pressy = True
+    elif (r == 7):
+        if (pressy == True):
+            keyboard.press('s')
+            pressy = False
+        else:
+            keyboard.release('s')
+            pressy = True
+    elif (r == 8):
+        if (pressy == True):
+            keyboard.press('a')
+            pressy = False
+        else:
+            keyboard.release('a')
+            pressy = True
+    elif (r == 9):
+        if (pressy == True):
+            keyboard.press('shift')
+            pressy = False
+        else:
+            keyboard.release('shift')
+            pressy = True
+    else:
+        if (pressy == True):
+            keyboard.press('d')
+            pressy = False
+        else:
+            keyboard.release('d')
+            pressy = True
+def switch(dickie, max):
+    rNums = []
+    for i in dickie:
+        rNums.append(i)
+    e = 0
+    bing = rand.choice(rNums)
+    while(e < rand.randint(1,max)):
+        e+=1
+        keyboard.press(bing)
+
+def paint():
+    i = 0
+    while(i<200):
+        i+=1
+        time.sleep(0.1)
+        ### Garry's Mod
+        #if(rand.randint(1,4) == 1):
+        #    openmenu("q")
+        #if (rand.randint(1, 70) == 1):
+        #    openmenu("e")
+        #if (rand.randint(1, 70) == 1):
+        #    openmenu("f")
+        #if (rand.randint(1, 150) == 1):
+        #    openmenu("ctrl")
+        #if (rand.randint(1, 200) == 1):
+        #    openmenu("c")
+        #if (rand.randint(1, 200) == 1):
+        #    openmenu("v")
+        ###
+
+        ### Random General
+        if(rand.randint(1,10)):
+            switch("qwertyuiopasdfghjklzxcvbnm<>?:',./':1234567890!@#$%^&*()",2)
+        ###
+        #if(rand.randint(1,5) == 1):
+        #    move()
+        #if(rand.randint(1,10) == 1): switch("123456", 6)
+        #if(rand.randint(1,5)==1):
+        #    clickTab()
+
+        #xx = rand.randint(0,1920)
+        #yy = rand.randint(0,1080)
+        #sclick(xx,yy)
+        #i += 1
+ol = 0
+#time.sleep(2)
+bingbing = rand.randint(5,6)
+while True:
+    #time.sleep(1)
+    #ol += 1
+    #
+    #if(ol == bingbing):
+    #    try:
+    #        ispressed = True
+    #        pressy = True
+    #        paint()
+    #        bingbing = rand.randint(30,90)
+    #        ol = 0
+    #    except:
+    #        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+    #        break
+    try:
+        if(keyboard.is_pressed(";")):
+            ispressed = True
+            pressy = True
+            paint()
+            bingbing = rand.randint(30,90)
+            ol = 0
+    except:
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        break
+
