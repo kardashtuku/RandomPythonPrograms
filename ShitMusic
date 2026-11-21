@@ -1,0 +1,308 @@
+import random as rand
+from tkinter import *
+from tkinter import ttk
+
+# Load sound files
+window = Tk()
+window.config(bg="black")
+window.geometry('1200x700')
+noteVar = StringVar()
+noteVar.set("A")
+progressionVar = StringVar()
+progressionVar.set("i-i-i")
+chordTVar = StringVar()
+chordTVar.set('Chord')
+chordVar = StringVar()
+chordVar.set('A-B-C')
+scaleTVar = StringVar()
+scaleTVar.set('f-u')
+scaleVar = StringVar()
+scaleVar.set("why-not")
+global dungus
+dungus = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#',
+              'E',
+              'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B',
+              'C', 'C#', 'D', 'D#', 'E',
+              'F', 'F#', 'G', 'G#']
+flat=False
+def flats():
+    global dungus
+    global flat
+    choose.config(fg="gray")
+    choose2.config(fg="black")
+    dungus = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab','A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab','A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab']
+    flat = True
+def sharps():
+    global dungus
+    global flat
+    choose2.config(fg="gray")
+    choose.config(fg="black")
+    dungus = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#',
+              'E',
+              'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B',
+              'C', 'C#', 'D', 'D#', 'E',
+              'F', 'F#', 'G', 'G#']
+    flat = False
+choose = Button(window,text="Switch to Flats",command=flats,font=('times',15))
+choose.place(relx=0.435,rely=0.02,anchor=CENTER)
+choose2 = Button(window,text="Switch to Sharps",command=sharps,font=('times',15))
+choose2.place(relx=0.565,rely=0.02,anchor=CENTER)
+
+root = 0
+def random():
+    keyA.config(bg="white")
+    keyB.config(bg="white")
+    keyC.config(bg="white")
+    keyD.config(bg="white")
+    keyE.config(bg="white")
+    keyF.config(bg="white")
+    keyG.config(bg="white")
+    keyAa.config(bg="gray")
+    keyCc.config(bg="gray")
+    keyDd.config(bg="gray")
+    keyFf.config(bg="gray")
+    keyGg.config(bg="gray")
+    root=rand.randint(0,11)
+
+    if(flat==False):
+        noteVar.set((['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', "G#"])[(root)])
+    else:
+        noteVar.set((['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab'])[(root)])
+    dingus = (rand.choice(['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii']))
+    if (rand.randint(1, 2) == 1):
+        dingus = dingus.upper()
+    sug=dingus
+    for i in range(1, rand.randint(2, 4)):
+        dingus = (rand.choice(['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii']))
+        if (rand.randint(1, 2) == 1):
+            dingus = dingus.upper()
+        sug = sug +" – "+ dingus
+    progressionVar.set(sug)
+    if(flat==False):
+        dungus = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#',
+              'E',
+              'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B',
+              'C', 'C#', 'D', 'D#', 'E',
+              'F', 'F#', 'G', 'G#']
+    else:
+        dungus = ['A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb',
+                  'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb',
+                  'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab']
+
+    chordlist = []
+    chordlist.append(dungus[root])
+    # ree = input("Key")
+    typer2 = 7
+    if (rand.randint(1, 2) == 1):
+        typer = 3
+        if (rand.randint(1, 2) == 1):
+            chordTVar.set("Minor")
+        else:
+            typer2 = 6
+            chordTVar.set("Diminished")
+    else:
+        typer = 4
+        if (rand.randint(1, 2) == 1):
+            chordTVar.set("Major")
+        else:
+            typer2 = 8
+            chordTVar.set("Augmented")
+    chordVar.set(dungus[root] + " – " + dungus[root + typer] + " – " + dungus[root + typer2])
+    chordlist.append(dungus[root + typer])
+    chordlist.append(dungus[root + typer2])
+    chord_to_key = {
+        "A": keyA,
+        "B": keyB,
+        "C": keyC,
+        "D": keyD,
+        "E": keyE,
+        "F": keyF,
+        "G": keyG,
+        "A#": keyAa, "Bb": keyAa,
+        "C#": keyCc, "Db": keyCc,
+        "D#": keyDd, "Eb": keyDd,
+        "F#": keyFf, "Gb": keyFf,
+        "G#": keyGg, "Ab": keyGg
+    }
+
+    for chord in chordlist:
+        if chord in chord_to_key:
+            chord_to_key[chord].config(bg="Yellow")
+    if (rand.randint(1, 2) == 1):
+        scaleTVar.set("Major")
+        scaleVar.set(
+            dungus[root] + ' – ' + dungus[root + 2] + ' – ' + dungus[root + 4] + ' – ' + dungus[root + 5] + ' – ' + dungus[
+                root + 7] + ' – ' + dungus[root + 9] + ' – ' + dungus[root + 11] + ' – ' + dungus[root + 12])
+    else:
+        scaleTVar.set("Minor")
+        scaleVar.set(
+            dungus[root] + ' – ' + dungus[root + 2] + ' – ' + dungus[root + 3] + ' – ' + dungus[root + 5] + ' – ' + dungus[
+                root + 7] + ' – ' + dungus[root + 8] + ' – ' + dungus[root + 10] + ' – ' + dungus[root + 12])
+    window.update()
+
+generate = Button(window,text="ALL RANDOM",command=random)
+
+
+options = ["Minor Chord", "Major Chord", "Diminished Chord", "Augmented Chord"]
+
+# Variable to store the selected option
+selectedChord = StringVar()
+selectedChord.set(options[0])  # Set the default option
+
+options2 = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+
+# Variable to store the selected option
+selectedNote = StringVar()
+selectedNote.set(options2[0])  # Set the default option
+
+# Function to handle the selection
+def option_changed2(event):
+    global root
+    noteVar.set(selectedNote.get())
+    print(selectedNote.get())
+    root = options2.index(selectedNote.get())
+dropdown2 = ttk.Combobox(window, textvariable=selectedNote, values=options2,font=('times',20),width=3)
+dropdown2.bind("<<ComboboxSelected>>", option_changed2)  # Call option_changed on selection
+dropdown2.place(relx=0.5,rely=0.08,anchor=CENTER)
+# Function to handle the selection
+def option_changed():
+    global chordlist
+    keyA.config(bg="white")
+    keyB.config(bg="white")
+    keyC.config(bg="white")
+    keyD.config(bg="white")
+    keyE.config(bg="white")
+    keyF.config(bg="white")
+    keyG.config(bg="white")
+    keyAa.config(bg="gray")
+    keyCc.config(bg="gray")
+    keyDd.config(bg="gray")
+    keyFf.config(bg="gray")
+    keyGg.config(bg="gray")
+    chordTVar.set(selectedChord.get())
+    chordlist = []
+    chordlist.append(dungus[root])
+    if(selectedChord.get()=='Major Chord'):
+        chordVar.set(dungus[root] + " – " + dungus[root + 4] + " – " + dungus[root + 7])
+        chordlist.append(dungus[root + 4])
+        chordlist.append(dungus[root + 7])
+    elif(selectedChord.get()=='Minor Chord'):
+        chordVar.set(dungus[root] + " – " + dungus[root + 3] + " – " + dungus[root + 7])
+        chordlist.append(dungus[root + 3])
+        chordlist.append(dungus[root + 7])
+    elif(selectedChord.get()=='Diminished Chord'):
+        chordVar.set(dungus[root] + " – " + dungus[root + 3] + " – " + dungus[root + 6])
+        chordlist.append(dungus[root + 3])
+        chordlist.append(dungus[root + 6])
+    else:
+        chordVar.set(dungus[root] + " – " + dungus[root + 4] + " – " + dungus[root + 8])
+        chordlist.append(dungus[root + 4])
+        chordlist.append(dungus[root + 8])
+
+    chord_to_key = {
+        "A": keyA,
+        "B": keyB,
+        "C": keyC,
+        "D": keyD,
+        "E": keyE,
+        "F": keyF,
+        "G": keyG,
+        "A#": keyAa, "Bb": keyAa,
+        "C#": keyCc, "Db": keyCc,
+        "D#": keyDd, "Eb": keyDd,
+        "F#": keyFf, "Gb": keyFf,
+        "G#": keyGg, "Ab": keyGg
+    }
+
+    for chord in chordlist:
+        if chord in chord_to_key:
+            chord_to_key[chord].config(bg="Yellow")
+
+dropdown = ttk.Combobox(window, textvariable=selectedChord, values=options,font=('times',20),width=15,foreground="black",background="black")
+#dropdown.bind("<<ComboboxSelected>>", option_changed)  # Call option_changed on selection
+dropdown.place(relx=0.15,rely=0.03,anchor=CENTER)
+button1 = Button(window,text=f"Generate Chord",command=option_changed,font=('times',15),bg="yellow",fg="black")
+button1.place(relx=0.15,rely=0.1,anchor=CENTER)
+options3 = ['Major','Minor',"Arabic"]
+
+# Variable to store the selected option
+selectedScale = StringVar()
+selectedScale.set(options3[0])  # Set the default optionS
+# Function to handle the selection
+def option_changed3():
+    scaleTVar.set(selectedScale.get())
+    if(selectedScale.get()=="Major"):
+        scaleVar.set(
+            dungus[root] + ' – ' + dungus[root + 2] + ' – ' + dungus[root + 4] + ' – ' + dungus[root + 5] + ' – ' + dungus[
+                root + 7] + ' – ' + dungus[root + 9] + ' – ' + dungus[root + 11] + ' – ' + dungus[root + 12])
+        scalelist = [(dungus[root]),(dungus[root+2]),(dungus[root+4]),(dungus[root+5]),(dungus[root+7]),(dungus[root+9]),(dungus[root+11]),(dungus[root+12])]
+    elif(selectedScale.get()=="Minor"):
+        scaleVar.set(
+            dungus[root] + ' – ' + dungus[root + 2] + ' – ' + dungus[root + 3] + ' – ' + dungus[root + 5] + ' – ' + dungus[
+                root + 7] + ' – ' + dungus[root + 8] + ' – ' + dungus[root + 10] + ' – ' + dungus[root + 12])
+        scalelist = [(dungus[root]),(dungus[root+2]),(dungus[root+3]),(dungus[root+5]),(dungus[root+7]),(dungus[root+8]),(dungus[root+10]),(dungus[root+12])]
+    elif (selectedScale.get() == "Arabic"):
+        scaleVar.set(
+            dungus[root] + ' – ' + dungus[root + 1] + ' – ' + dungus[root + 4] + ' – ' + dungus[root + 5] + ' – ' +
+            dungus[
+                root + 7] + ' – ' + dungus[root + 8] + ' – ' + dungus[root + 11] + ' – ' + dungus[root + 12])
+        scalelist = [(dungus[root]),(dungus[root+1]),(dungus[root+4]),(dungus[root+5]),(dungus[root+7]),(dungus[root+8]),(dungus[root+11]),(dungus[root+12])]
+
+
+
+
+
+keyA = Button(window,text="A",height=8,width=3)
+keyB = Button(window,text="B",height=8,width=3)
+keyC = Button(window,text="C",height=8,width=3)
+keyD = Button(window,text="D",height=8,width=3)
+keyE = Button(window,text="E",height=8,width=3)
+keyF = Button(window,text="F",height=8,width=3)
+keyG = Button(window,text="G",height=8,width=3)
+keyAa = Button(window,text="A#",height=5,width=2,bg="gray")
+keyCc = Button(window,text="C#",height=5,width=2,bg="gray")
+keyDd = Button(window,text="D#",height=5,width=2,bg="gray")
+keyFf = Button(window,text="F#",height=5,width=2,bg="gray")
+keyGg = Button(window,text="G#",height=5,width=2,bg="gray")
+
+
+
+keyA.place(relx=0.03,rely=0.57,anchor=CENTER)
+keyB.place(relx=0.06,rely=0.57,anchor=CENTER)
+keyC.place(relx=0.09,rely=0.57,anchor=CENTER)
+keyD.place(relx=0.12,rely=0.57,anchor=CENTER)
+keyE.place(relx=0.15,rely=0.57,anchor=CENTER)
+keyF.place(relx=0.18,rely=0.57,anchor=CENTER)
+keyG.place(relx=0.21,rely=0.57,anchor=CENTER)
+keyAa.place(relx=0.045,rely=0.53,anchor=CENTER)
+keyCc.place(relx=0.105,rely=0.53,anchor=CENTER)
+keyDd.place(relx=0.135,rely=0.53,anchor=CENTER)
+keyFf.place(relx=0.195,rely=0.53,anchor=CENTER)
+keyGg.place(relx=0.225,rely=0.53,anchor=CENTER)
+
+
+dropdown3 = ttk.Combobox(window, textvariable=selectedScale, values=options3,font=('times',20),width=6)
+#dropdown3.bind("<<ComboboxSelected>>", option_changed3)  # Call option_changed on selection
+dropdown3.place(relx=0.5,rely=0.5,anchor=CENTER)
+
+button2 = Button(window,text=f"Generate Scale",command=option_changed3,font=('times',15),bg="turquoise",fg="black")
+button2.place(relx=0.5,rely=0.57,anchor=CENTER)
+
+label = Label(window,text="Root Note:",font=('times',20), bg="black",fg="white")
+label.place(relx=0.5,rely=0.14,anchor=CENTER)
+noteLabel = Label(window,textvariable=noteVar,font=('times',50), bg="black",fg="white")
+noteLabel.place(relx=0.5,rely=0.22,anchor=CENTER)
+progLabel = Label(window,text="Chord Progression:",font=('times',20),fg="pink",bg="black")
+progLabel.place(relx=0.85,rely=0.03,anchor=CENTER)
+progressionLabel = Label(window,textvariable=progressionVar,font=('times',20),fg="pink",bg="black")
+progressionLabel.place(relx=0.85,rely=0.1,anchor=CENTER)
+chordt = Label(window,textvariable=chordTVar,font=('times',20),fg="yellow",bg="black")
+chordt.place(relx=0.15,rely=0.17,anchor=CENTER)
+chord = Label(window,textvariable=chordVar,font=('times',20),fg="yellow",bg="black")
+chord.place(relx=0.15,rely=0.25,anchor=CENTER)
+scalet = Label(window,textvariable=scaleTVar,font=('times',20),fg="turquoise",bg="black")
+scalet.place(relx=0.5,rely=0.64,anchor=CENTER)
+scale = Label(window,textvariable=scaleVar,font=('times',20),fg="turquoise",bg="black")
+scale.place(relx=0.5,rely=0.7,anchor=CENTER)
+generate.place(relx=0.5,rely=0.95,anchor=CENTER)
+window.mainloop()
