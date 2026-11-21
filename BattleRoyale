@@ -1,0 +1,260 @@
+import random as rand
+from tkinter import *
+
+
+county_list = ["Portugal", "Spain", "France", "Ireland", "Netherlands", "Belgium", "Scotland", "Luxembourg", "Germany",
+               "Italy", "Denmark", "Sweden", "Finland", "Estonia", "Latvia", "Lithuania", "Poland", "Czechia",
+               "Austria", "Hungary", "Slovakia", "Slovenia", "Croatia", "Romania", "Greece", "Malta", "Cyprus",
+               "Bulgaria"]
+
+newstate = ["England, Wales, and Northern Ireland", "Andorra", "Iceland", "Switzerland", "Liechtenstein", "Norway",
+            "Bosnia and Herzegovina", "Serbia", "Kosovo", "Albania", "Montenegro", "North Macedonia", "Moldova",
+            "Ukraine", "Turkey", "Armenia", "Azerbaijan", "Morroco", "Egypt", "Belarus", "Russia", "Tunisia",
+            "San Marino", "Vatican"]
+eventss = []
+state="EU"
+def scene1():
+    global county_list,newstate,eventss,state,tindow
+    county_list = ["Portugal", "Spain", "France", "Ireland", "Netherlands", "Belgium", "Scotland", "Luxembourg",
+                   "Germany",
+                   "Italy", "Denmark", "Sweden", "Finland", "Estonia", "Latvia", "Lithuania", "Poland", "Czechia",
+                   "Austria", "Hungary", "Slovakia", "Slovenia", "Croatia", "Romania", "Greece", "Malta", "Cyprus",
+                   "Bulgaria"]
+
+    newstate = ["England, Wales, and Northern Ireland", "Andorra", "Iceland", "Switzerland", "Liechtenstein", "Norway",
+                "Bosnia and Herzegovina", "Serbia", "Kosovo", "Albania", "Montenegro", "North Macedonia", "Moldova",
+                "Ukraine", "Turkey", "Armenia", "Azerbaijan", "Morroco", "Egypt", "Belarus", "Russia", "Tunisia",
+                "San Marino", "Vatican"]
+    state="EU"
+    tindow.destroy()
+def scene2():
+    global county_list,newstate,eventss,state,tindow
+    county_list=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
+
+    newstate=["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland ","Labrador","Nova Scotia","Ontario","Prince Edward Island","Quebec","Saskatchewan","Mexico","Bermuda","The Phillipines","Cuba","Jamaica","Japan","Germany"]
+
+    state="USA"
+    tindow.destroy()
+tindow = Tk()
+
+eubut = Button(tindow,text="EU COLLAPSE",command=scene1)
+eubut.pack()
+usbut = Button(tindow,text="USA COLLAPSE",command=scene2)
+usbut.pack()
+
+tindow.mainloop()
+def nun():
+    pass
+window = Tk()
+window.geometry('1600x1000')
+eventVar = StringVar()
+infoVar = StringVar()
+secondVar = StringVar()
+stabVar = StringVar()
+countriesVar = StringVar()
+
+cine = 10
+
+
+this = 0
+that = 0
+year = rand.randint(2050, 2500)
+
+county_ind = ["Kingdom of", "Republic of", "Soviet Socialist Republic of", "Empire of", "Federation of"]
+county_bind = ["Kingdom", "Republic", "Soviet Republic", "Federation"]
+line = 10
+stability = 100
+ww = 0
+deadcounty_list = []
+run=1
+def generate():
+    global year,ww,stability,that,this,county_list,newstate,county_ind,county_bind,line,deadcounty_list,cine,run,eventss,state
+    secondVar.set('')
+    if(run==0):
+        eventVar.set("The "+state+" has collapsed")
+        gener.config(command=nun)
+    try:
+        stable = rand.randint(1, 5)
+        ww = ww + stable
+        if (ww > 99):
+            ww = 99
+        world_tension = str(ww)
+        year_plus = rand.randint(1, 4)
+        infoVar.set(str(year)+ " C.E.    World Tension: "+ world_tension + "%")
+        year = year + year_plus
+        scenario = rand.randint(1, 11)
+        if (scenario == 1):
+            eventVar.set("The "+state+" brings several reforms to the nation, unifying its people a little")
+            stability = stability + 10
+        if (scenario == 2):
+            eventVar.set("A scandal in the "+state+" government was exposed")
+            stability = stability - 5
+        if (scenario == 3):
+            attempt = rand.randint(1, 2)
+            if (attempt == 1):
+                eventVar.set("The "+state+" passes a law that gave more freedom to the people")
+                stability = stability + 25
+            if (attempt == 2):
+                eventVar.set("The "+state+" passes a very controversial law")
+                stability = stability - 20
+        if (scenario == 4):
+            attempt = rand.randint(1, 2)
+            if (attempt == 1):
+                stability = stability + 30
+                that = that + 1
+                if (that > 1):
+                    eventVar.set("The "+state+" gives more workers rights")
+                if (that <= 1):
+                    eventVar.set("The "+state+" becomes communist union.")
+            if (attempt == 2):
+                stability = stability - 25
+                this = this + 1
+                if (this > 1):
+                    eventVar.set("The "+state+" gives the leader more power")
+                if (this <= 1):
+                    eventVar.set("In a chaotic collapse, the "+state+" becomes fascist")
+        if (scenario == 5):
+            ind = rand.choice(county_ind)
+            bind = rand.choice(county_bind)
+            secede = rand.choice(county_list)
+            if (stability > 50):
+                eventVar.set(secede+ " attempts a referendum to leave the union, but narrowly failed")
+                stability = stability - 5
+            if (stability <= 50):
+                eventVar.set(secede+ " leaves the union and forms the "+ind+" "+" "+secede)
+                county_list.remove(secede)
+                deadcounty_list.append(secede)
+                stability = stability + 15
+        if (scenario == 6):
+            annex = rand.choice(county_list)
+            if (stability > 65):
+                eventVar.set("Another nation attempted to invade the "+state+" but they fended off the attacks")
+                stability = stability + 25
+            if (stability <= 65):
+                eventVar.set("Another nation invaded the "+state+" and annexed "+ annex)
+                county_list.remove(annex)
+                deadcounty_list.append(annex)
+        if (scenario == 7):
+            eventVar.set("Extremist rioted in most major cities")
+            stability = stability - 15
+        if (scenario == 8):
+            bind = rand.choice(county_bind)
+            ind = rand.choice(county_ind)
+            attempt = rand.randint(1, 2)
+            if (attempt == 1):
+                eventVar.set("A massive civil war takes place but the "+state+" was able to win")
+                stability = stability + 40
+            if (attempt == 2):
+                kine = 10
+                if not county_list[3:]:
+                    kine = 1
+                if not county_list[2:]:
+                    kine = 1
+                if not county_list[1:]:
+                    kine = 1
+                eventVar.set(f"A massive civil war takes place and the "+state+" is forced to grant multiple nations their independence\n"
+                             f"States that left: \n")
+                clam = []
+                while (kine > 0):
+                    try:
+                        civil = rand.choice(county_list)
+                        clam.append(civil)
+                        county_list.remove(civil)
+                        deadcounty_list.append(civil)
+                        kine = kine - 1
+                    except:
+                        break
+                secondVar.set(clam)
+        if (scenario == 9):
+            eventVar.set("A short period of peace happens")
+            stability = stability + 5
+        if (scenario == 10):
+            attempt = rand.randint(1, 2)
+            if (attempt == 1):
+                eventVar.set("The "+state+" tries to integrate another nation and fails")
+                stability = stability - 10
+            if (attempt == 2):
+                newstater = rand.choice(newstate)
+                newstate.remove(newstater)
+                county_list.append(newstater)
+                eventVar.set("The "+state+" integrates "+newstater+ " into the union")
+                stability = stability + 25
+        if (scenario == 11):
+            keem = 1
+            if not deadcounty_list[0:]:
+                keem = 0
+            if (keem == 1):
+                attempt = rand.randint(1, 2)
+                deadcounty = rand.choice(deadcounty_list)
+                if (attempt == 1):
+                    eventVar.set("The "+state+" successfully took back the lost nation of "+deadcounty)
+                    county_list.append(deadcounty)
+                    deadcounty_list.remove(deadcounty)
+                    stability = stability + 5
+                if (attempt == 2):
+                    eventVar.set("The "+state+" unsuccessfully tried to take back "+deadcounty)
+                    stability = stability - 15
+            if (keem == 0):
+                eventVar.set("The "+state+" improves relations with allies")
+        stability = stability - 5
+        if (stability > 100):
+            stability = 100
+        if (stability < 0):
+            stability = 0
+        stabVar.set("Stability: "+ str(stability))
+        if not county_list[0:]:
+            line = 0
+        if (ww > 80):
+            war_chance = 100 - ww
+            if (ww > 99):
+                war_chance = 1
+            ww_chance = rand.randint(1, war_chance)
+            if (ww_chance == 1):
+                wyear = rand.randint(4, 9)
+                ww = 0
+                year = year + year_plus
+                infoVar.set(str(year)+ " C.E.")
+                eventVar.set("Due to rising tensions, a world war occurs")
+                winner = rand.randint(1, 5)
+                if (winner <= 2):
+                    year = year + wyear
+                    infoVar.set(str(year)+" C.E.")
+                    secondVar.set("Luckily, the "+state+" was able to win the war")
+                    stability = 100
+                if (winner >= 4):
+                    secondVar.set("The "+state+" was on the losing side of the war")
+                    stability = stability - 50
+                if (winner == 3):
+                    if (stability < 50):
+                        secondVar.set(" the "+state+" will not join in as their government is in shambles")
+                    if (80 > stability >= 50):
+                        secondVar.set("The "+state+" has decided to stay neutral")
+                    if (stability >= 80):
+                        secondVar.set("The "+state+" has decided to not join in on this imperialist war")
+                        stability = stability + 15
+        countriesVar.set(f"Countries in the "+state+":\n"
+                         f"{county_list}")
+        window.update()
+    except:
+        countriesVar.set(f"Countries in the "+state+":\n"
+                         f"None")
+        run=0
+    if(len(county_list)==0):
+        run=0
+
+
+
+infoLab = Label(window,textvariable=infoVar,font=("TIMES",30),bg="turquoise",fg="black")
+eventLab = Label(window,textvariable=eventVar,font=("TIMES",20),bg="pink",fg="black")
+secondLab = Label(window,textvariable=secondVar,font=("TIMES",15),bg="pink",fg="black")
+stabLab = Label(window,textvariable=stabVar,font=("TIMES",20),bg="yellow",fg="black")
+countries = Label(window,textvariable=countriesVar,wraplength=500,font=("TIMES",10),bg="light grey",fg="black")
+gener = Button(window,text="GEN",command=generate)
+infoLab.pack()
+eventLab.pack()
+secondLab.pack()
+stabLab.pack()
+countries.place(relx=0.5,rely=0.7,anchor=CENTER)
+gener.place(relx=0.5,rely=0.9,anchor=CENTER)
+
+window.mainloop()
