@@ -1,0 +1,190 @@
+import random as rand
+from tkinter import *
+
+def accent():
+    global wordlist, vowels, consonants, ogletter, newword, statement, newletter
+    statement = "Accenting the letter " + ogletter
+    d = rand.randint(0, 4)
+    prior = "?"
+    for i in wordlist:
+        if (i == ogletter):
+            if (ogletter == "a"):
+                i = (["á", "ȧ", "ǎ", "ā", "ä"])[d]
+            elif (ogletter == "e"):
+                i = (["é", "ė", "ë", "ē", "ě"])[d]
+            elif (ogletter == "i"):
+                i = (["í", "ı", "î", "ï", "ī"])[d]
+            elif (ogletter == "o"):
+                i = (["ó", "ȯ", "ō", "ŏ", "ö"])[d]
+            elif (ogletter == "u"):
+                i = (["ú", "ụ", "ǔ", "ū", "ü"])[d]
+            else:
+                i = rand.choice(["a", "e", "i", "o", "u"])
+                statement = "De-accenting of the letter " + ogletter
+            newletter = i
+            vowels.append(i)
+        if (i != prior):
+            newword.append(i)
+        prior = i
+
+
+def vowelshift():
+    global wordlist, vowels, consonants, ogletter, newword, switch, statement
+    prior = "?"
+    for i in wordlist:
+        if (i == ogletter):
+            i = switch
+        statement = "Vowel shift from " + ogletter + " to " + switch
+        if (i != prior):
+            newword.append(i)
+        prior = i
+
+
+def consonantshift():
+    global wordlist, vowels, consonants, ogletter, newword, switch, statement
+    prior = "?"
+    for i in wordlist:
+        if (i == ogletter):
+            i = switch
+        statement = "Consonant shift from " + ogletter + " to " + switch
+        if (i != prior):
+            newword.append(i)
+        prior = i
+
+window = Tk()
+
+wordVar = StringVar()
+typeVar = StringVar()
+geneVar = StringVar()
+stateVar = StringVar()
+
+newword = []
+statement = "Error"
+langtype = "Twang"
+
+vowels = ["a", "e", "i", "o", "u"]
+consonants = ["q", "w", "r", "t", "y", "p", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"]
+
+generations = 0
+# Vowel Shift
+f = True
+newletter = "ERROR"
+entryer = Entry(window,font=("TIMES",50),justify=CENTER)
+entryer.pack()
+
+
+
+def generate():
+    global wordlist, vowels, consonants, ogletter, newword, statement, newletter, switch, generations, word, langtype,bing
+    word = entryer.get().lower()
+    wordlist = list(word)
+    f = True
+    while (f == True):
+        newword = []
+        generations += 1
+        if (generations == 5):
+            langtype = "accent"
+        elif (generations == 15):
+            langtype = "creole"
+        elif (generations == 40):
+            langtype = "dialect"
+        elif (generations == 50):
+            langtype = "Sister Language"
+        elif (generations == 75):
+            langtype = "Cousin Language"
+        elif (generations == 175):
+            langtype = "Same Language Family"
+        elif (generations == 190):
+            langtype = "Same language group"
+        elif (generations == 250):
+            langtype = "From Proto-Linguic Origins"
+        elif (generations == 350):
+            langtype = "Detached Language"
+        change = rand.randint(1, 25)
+        if (change <= 12):
+            ogletter = rand.choice(vowels)
+            switch = rand.choice(vowels)
+            if (ogletter == switch):
+                accent()
+            else:
+                vowelshift()
+        if (12 < change <= 20):
+            ogletter = rand.choice(consonants)
+            if (ogletter in (["q", "c", "k", "x", "t", "g", "d", "p"])):
+                switch = rand.choice(["q", "c", "k", "x", "t", "g", "d", "p", "v", "z", "h", "f", "s"])
+            elif (ogletter in ["v", "z", "h", "f", "s"]):
+                switch = rand.choice(
+                    ["q", "c", "k", "x", "t", "g", "d", "p", "v", "z", "h", "f", "s", "l", "r", "w", "m", "n"])
+            elif (ogletter in ["l", "r", "w", "m", "n"]):
+                switch = rand.choice(["v", "z", "h", "f", "s"])
+            else:
+                switch = rand.choice(consonants)
+            consonantshift()
+        if (23 >= change >= 21):
+            statement = "Adding a letter"
+            bing = rand.randint(1, 2)
+            prior = "?"
+            for i in wordlist:
+                if (i != prior):
+                    newword.append(i)
+                prior = i
+            if (bing == 1):
+                newword.insert(rand.randint(0, len(wordlist)), rand.choice(vowels))
+            else:
+                newword.insert(rand.randint(0, len(wordlist)), rand.choice(consonants))
+
+        if (change == 24):
+            statement = "Removing a letter"
+            prior = "?"
+            for i in wordlist:
+                if (i != prior):
+                    newword.append(i)
+                prior = i
+            try:
+                del newword[rand.randint(0, len(wordlist))]
+            except:
+                print("")
+        if(change == 25):
+            prior = "?"
+            for i in wordlist:
+                if (i != prior):
+                    newword.append(i)
+                prior = i
+            try:
+                statement = "Compounding words"
+                newword.remove(" ")
+            except:
+                statement = "Splitting word"
+                newword.insert(rand.randint(0, len(wordlist)), " ")
+                pass
+
+        if (''.join(newword) != ''.join(wordlist)):
+            f = False
+        if(len(wordlist)>=11):
+            try:
+                del newword[rand.randint(0, len(wordlist))]
+            except:
+                pass
+            newword.insert(rand.randint(0, len(wordlist)), " ")
+    entryer.delete(0,END)
+    entryer.insert(0,''.join(newword))
+    word = ''.join(newword)
+    wordlist = newword
+    typeVar.set(langtype)
+    stateVar.set(statement)
+    geneVar.set(str(generations * 20) + " Years")
+    wordVar.set(''.join(newword))
+
+wordLa = Label(window, textvariable=wordVar)
+wordLa.pack()
+geneLa = Label(window, textvariable=geneVar)
+geneLa.pack()
+stateLa = Label(window, textvariable=stateVar)
+stateLa.pack()
+typeLa = Label(window, textvariable=typeVar)
+typeLa.pack()
+
+button = Button(window, text="COM",command=generate)
+button.pack()
+
+window.mainloop()
